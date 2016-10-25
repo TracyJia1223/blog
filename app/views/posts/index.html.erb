@@ -1,0 +1,13 @@
+<%= render 'layouts/messages'%>
+
+<h1 align="center">All Posts</h1>
+
+<div align="center">
+  <%= will_paginate %>
+</div>
+
+<%= render 'post', obj: @posts %>
+
+<div align="center">
+  <%= will_paginate %>
+</div>
