@@ -56,7 +56,7 @@ before_action :require_same_user, only: [:edit, :update, :destroy]
   private
 
   def post_params
-    params.require(:post).permit(:title, :body)
+    params.require(:post).permit(:title, :body, :image)
   end
 
   def find_post
