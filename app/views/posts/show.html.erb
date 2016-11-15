@@ -20,12 +20,24 @@
   <h4 class="center description"><strong>Description:</strong></h4>
   <hr>
   <%= simple_format(@post.body) %>
+  <% if @post.categories.any? %>
+    <p>Categories: <%= render @post.categories %></p>
+  <% end %>
   <%# @post.image_file_size %>
   <% if @post.image_file_size %>
     <%= link_to image_tag(@post.image.url(:large)), @post.image.url, target: '_blank' %>
   <% end %>
   <div class="post-actions">
-    <% if logged_in? && current_user == @post.user %>
+    <% if logged_in? && current_user != @post.user %>
+      <% if @like.present? %>
+        <%= link_to "Un-Like", like_path(@like), method: :delete, class: "btn btn-xs btn-primary" %>
+      <% else %>
+        <%= link_to "Like", post_likes_path(@post), method: :post, class: "btn btn-xs btn-primary" %>
+      <% end %>
+    <% end %>
+    <h5>(<%= pluralize @post.likes.count, "like" %>)</h5>
+
+    <% if logged_in? && (current_user == @post.user || current_user.admin?) %>
       <%= link_to 'Edit', edit_post_path(@post), class: "btn btn-xs btn-primary" %>
       <%= link_to 'Delete', post_path(@post),
                         method: :delete,
@@ -63,7 +75,7 @@
       <%= simple_format(c.body) %>
       <% if logged_in? %>
         <div class="post-actions">
-          <%= link_to 'Delete', post_comment_path(@post, c),
+          <%= link_to 'Delete', comment_path(c),
                             method: :delete,
                             data: {confirm: 'Are you sure?'}, class: "btn btn-xs btn-danger" %>
         </div>

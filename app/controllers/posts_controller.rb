@@ -23,6 +23,7 @@ before_action :require_same_user, only: [:edit, :update, :destroy]
 
   def show
     @comment = Comment.new
+    @like = @post.like_for(current_user)
   end
 
   def index
@@ -56,7 +57,7 @@ before_action :require_same_user, only: [:edit, :update, :destroy]
   private
 
   def post_params
-    params.require(:post).permit(:title, :body, :image)
+    params.require(:post).permit(:title, :body, :image, category_ids:[])
   end
 
   def find_post
@@ -64,7 +65,7 @@ before_action :require_same_user, only: [:edit, :update, :destroy]
   end
 
   def require_same_user
-    if current_user != @post.user
+    if current_user != @post.user && !current_user.admin?
       flash[:danger] = "You can only edit or delete your own articles"
       redirect_to root_path
     end

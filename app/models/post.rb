@@ -1,5 +1,9 @@
 class Post < ApplicationRecord
   has_many :comments, -> {order(created_at: :desc)}, dependent: :destroy
+  has_many :likes, dependent: :destroy
+  has_many :likers, through: :likes, source: :user
+  has_many :post_categories, dependent: :destroy
+  has_many :categories, through: :post_categories
   belongs_to :user
   validates :title, presence: true, uniqueness: {case_sensitive: false, message: 'must be unique'}
   validates :body, length: { minimum: 5 }
@@ -10,5 +14,9 @@ class Post < ApplicationRecord
 
   def self.search(search)
     where("title ILIKE ? OR body ILIKE ?","%#{search}%","%#{search}%")
+  end
+
+  def like_for(user)
+    likes.find_by(user: user)
   end
 end
