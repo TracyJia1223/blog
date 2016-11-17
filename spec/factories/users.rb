@@ -1,6 +1,7 @@
 FactoryGirl.define do
   factory :user do
-    name "MyString"
-    email "MyString"
+    username "MyString"
+    sequence(:email) {|n| Faker::Internet.email.gsub('@', "-#{n}@")}
+    password "MyString"
   end
 end
