@@ -25,18 +25,23 @@ $navbar-default-bg: #666666;
   text-align: center;
 }
 
-.jumbotron {
-  background-image: asset-url('cover.jpg');
-  background-size: cover;
-  height: 550px;
-}
+// .jumbotron {
+//   background-image: asset-url('cover.jpg');
+//   background-size: cover;
+//   height: 700px;
+// }
 
 .jumbotron h1 {
+  position: absolute;
+  bottom: 60%;
+  left: 45%;
+  z-index: 20;
   color: #fff;
   text-align: center;
-  margin-bottom: 30px;
-  letter-spacing: -1px;
+  margin-bottom: -10px;
+  // letter-spacing: -1px;
   font-weight: bold;
+  text-shadow: 1px 1px 2px black, 0 0 45px red, 0 0 45px pink;
 }
 
 .btn-sm {

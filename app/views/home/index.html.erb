@@ -1,4 +1,5 @@
-<div class="center jumbotron">
-  <h1>Better Transit Alliance</h1>
-  <%# link_to "Sign up as admin", signup_path, class:"btn btn-danger btn-sm" %>
+<div class="center jumbotron" id="myCarousel">
+  <h1>Blog</h1>
+  <% images = ['1.jpg', '2.jpg', '3.jpg', '4.jpg'] %>
+  <%= carousel_for(images) %>
 </div>
