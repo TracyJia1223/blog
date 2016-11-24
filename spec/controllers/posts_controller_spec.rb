@@ -7,7 +7,7 @@ RSpec.describe PostsController, type: :controller do
     before { request.session[:user_id] = user.id }
     context 'with valid params' do
       def valid_request
-        post :create, params: {post: attributes_for(:post)}
+        post :create, params: { post: attributes_for(:post) }
       end
 
       it 'saves a Record to the database' do

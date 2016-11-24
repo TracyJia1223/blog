@@ -1,9 +1,9 @@
 class PostsController < ApplicationController
-POSTS_PER_PAGE = 5
-before_action :find_post, only: [:edit, :update, :destroy, :show]
+  POSTS_PER_PAGE = 5
+  before_action :find_post, only: [:edit, :update, :destroy, :show]
 
-before_action :require_user, except: [:index, :show]
-before_action :require_same_user, only: [:edit, :update, :destroy]
+  before_action :require_user, except: [:index, :show]
+  before_action :require_same_user, only: [:edit, :update, :destroy]
 
   def new
     @post = Post.new
@@ -31,7 +31,7 @@ before_action :require_same_user, only: [:edit, :update, :destroy]
       @posts = Post.search(params[:search]).order(created_at: :desc).paginate(page: params[:page], per_page: POSTS_PER_PAGE)
     else
       @posts = Post.order(created_at: :desc).paginate(page: params[:page], per_page: POSTS_PER_PAGE)
-    #.page(params[:page]).per(POSTS_PER_PAGE)
+      # .page(params[:page]).per(POSTS_PER_PAGE)
     end
   end
 
@@ -57,7 +57,7 @@ before_action :require_same_user, only: [:edit, :update, :destroy]
   private
 
   def post_params
-    params.require(:post).permit(:title, :body, :image, category_ids:[])
+    params.require(:post).permit(:title, :body, :image, category_ids: [])
   end
 
   def find_post
@@ -66,9 +66,8 @@ before_action :require_same_user, only: [:edit, :update, :destroy]
 
   def require_same_user
     if current_user != @post.user && !current_user.admin?
-      flash[:danger] = "You can only edit or delete your own articles"
+      flash[:danger] = 'You can only edit or delete your own articles'
       redirect_to root_path
     end
   end
-
 end
